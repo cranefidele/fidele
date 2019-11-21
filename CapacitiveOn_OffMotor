@@ -1,0 +1,139 @@
+/*
+ Code to run a stepper motor (28BYJ-48) with driver board using 3 touch sensors.
+ Initialised for Arduino UNO.
+ Schematics assumes three distinct on off switches, one of them (TouchG) acting as an on/off switch,
+ second one (TouchY) as a speed-up button, and the third (TouchB) reversing the direction of rotation.
+ Pins labeled as written on the UNO dev. board and the driver module for the 28BYJ-48.
+ 
+ REV Speed can be adjusted by changing the delay values in the if statements, but it shouldn't be less
+ than 2 ms, since the 28BYJ-48 won't be able to work at that speed.
+ 
+ Sketched and written by Berke Kasar (cranefidele), November 2019.
+
+ Enjoy!
+ */
+ 
+#define IN1 8
+#define IN2 9
+#define IN3 10
+#define IN4 11
+int TouchG = 7; //defining Green Capacitive Switch
+int TouchY = 5; //defining Yellow Capacitive Switch
+int TouchB = 6; //defining Blue Capacitive Switch
+
+void setup() {
+pinMode(IN1, OUTPUT);
+pinMode(IN2, OUTPUT);
+pinMode(IN3, OUTPUT);
+pinMode(IN4, OUTPUT);
+pinMode(TouchG,INPUT);
+pinMode(TouchY,INPUT);
+pinMode(TouchB,INPUT);
+}
+
+void loop() {
+  if(digitalRead(TouchG) == HIGH){
+    if(digitalRead(TouchY) == HIGH){
+      if(digitalRead(TouchB) == LOW){
+        
+        //fast clockwise motor code starts here
+        digitalWrite(IN1, HIGH);
+        digitalWrite(IN2, LOW);
+        digitalWrite(IN3, LOW);
+        digitalWrite(IN4, LOW);
+        delay(2);
+        digitalWrite(IN1, LOW);
+        digitalWrite(IN2, HIGH);
+        digitalWrite(IN3, LOW);
+        digitalWrite(IN4, LOW);
+        delay(2);
+        digitalWrite(IN1, LOW);
+        digitalWrite(IN2, LOW);
+        digitalWrite(IN3, HIGH);
+        digitalWrite(IN4, LOW);
+        delay(2);
+        digitalWrite(IN1, LOW);
+        digitalWrite(IN2, LOW);
+        digitalWrite(IN3, LOW);
+        digitalWrite(IN4, HIGH);
+        delay(2);
+        // ends here
+        }
+        else
+        {
+        //fast anticlock code starts here
+        digitalWrite(IN1, LOW);
+        digitalWrite(IN2, LOW);
+        digitalWrite(IN3, LOW);
+        digitalWrite(IN4, HIGH);
+        delay(2);
+        digitalWrite(IN1, LOW);
+        digitalWrite(IN2, LOW);
+        digitalWrite(IN3, HIGH);
+        digitalWrite(IN4, LOW);
+        delay(2);
+        digitalWrite(IN1, LOW);
+        digitalWrite(IN2, HIGH);
+        digitalWrite(IN3, LOW);
+        digitalWrite(IN4, LOW);
+        delay(2);
+        digitalWrite(IN1, HIGH);
+        digitalWrite(IN2, LOW);
+        digitalWrite(IN3, LOW);
+        digitalWrite(IN4, LOW);
+        delay(2);
+        // ends here
+        }
+     }
+     else
+     {
+     // slow clock code starts here
+     digitalWrite(IN1, HIGH);
+     digitalWrite(IN2, LOW);
+     digitalWrite(IN3, LOW);
+     digitalWrite(IN4, LOW);
+     delay(7);
+     digitalWrite(IN1, LOW);
+     digitalWrite(IN2, HIGH);
+     digitalWrite(IN3, LOW);
+     digitalWrite(IN4, LOW);
+     delay(7);
+     digitalWrite(IN1, LOW);
+     digitalWrite(IN2, LOW);
+     digitalWrite(IN3, HIGH);
+     digitalWrite(IN4, LOW);
+     delay(7);
+     digitalWrite(IN1, LOW);
+     digitalWrite(IN2, LOW);
+     digitalWrite(IN3, LOW);
+     digitalWrite(IN4, HIGH);
+     delay(7);
+     // ends here
+     }
+   }
+   else
+   {
+   //no movement code starts here
+   digitalWrite(IN1, LOW);
+   digitalWrite(IN2, LOW);
+   digitalWrite(IN3, LOW);
+   digitalWrite(IN4, LOW);
+   delay(9);
+   digitalWrite(IN1, LOW);
+   digitalWrite(IN2, LOW);
+   digitalWrite(IN3, LOW);
+   digitalWrite(IN4, LOW);
+   delay(9);
+   digitalWrite(IN1, LOW);
+   digitalWrite(IN2, LOW);
+   digitalWrite(IN3, LOW);
+   digitalWrite(IN4, LOW);
+   delay(9);
+   digitalWrite(IN1, LOW);
+   digitalWrite(IN2, LOW);
+   digitalWrite(IN3, LOW);
+   digitalWrite(IN4, LOW);
+   delay(9);
+   // ends here
+   }
+}
